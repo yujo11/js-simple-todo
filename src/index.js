@@ -18,10 +18,11 @@ const handleSubmit = (e) => {
   checkListCount(); // 개수 체크
 };
 
-$('.todo-form').addEventListener('submit', handleSubmit);
+const init = () => {
+  $('.todo-form').addEventListener('submit', handleSubmit);
+  $('.todo-list').addEventListener('click', handleCheckBoxClick);
+  $('.filters').addEventListener('click', handleFilterClick);
+  $('.todo-list').addEventListener('dblclick', handleDoubleClick);
+};
 
-$('.todo-list').addEventListener('click', handleCheckBoxClick);
-
-$('.filters').addEventListener('click', handleFilterClick);
-
-$('.todo-list').addEventListener('dblclick', handleDoubleClick);
+init();
