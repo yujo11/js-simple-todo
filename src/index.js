@@ -1,6 +1,10 @@
 import $ from './utils/selector.js';
 const listArray = [];
 
+const checkListCount = () => {
+  $('.todo-count > strong').textContent = $('.todo-list').childElementCount;
+};
+
 const createNewItem = (value, index) => {
   const li = document.createElement('li');
   li.setAttribute('data-index', String(index));
@@ -22,6 +26,8 @@ const createNewItem = (value, index) => {
   div.append(input, label, button);
   li.append(div);
   $('.todo-list').append(li);
+
+  checkListCount();
 };
 
 const handleSubmit = (e) => {
@@ -45,6 +51,7 @@ const handleClick = (e) => {
   }
   if (e.target.classList.contains('destroy')) {
     $(`[data-index="${indexNum}"]`).remove();
+    checkListCount();
   }
 };
 
