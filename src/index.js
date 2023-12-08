@@ -3,7 +3,7 @@ const listArray = [];
 
 const createNewItem = (value, index) => {
   const li = document.createElement('li');
-  li.setAttribute('data-index', index);
+  li.setAttribute('data-index', String(index));
 
   const div = document.createElement('div');
   div.classList.add('view');
@@ -36,11 +36,16 @@ const handleSubmit = (e) => {
 $('.todo-form').addEventListener('submit', handleSubmit);
 
 const handleClick = (e) => {
-  if (!e.target.classList.contains('toggle')) return;
   const indexNum = e.target.parentElement.parentElement.dataset['index'];
+  if (!indexNum) return;
 
-  $(`[data-index="${indexNum}"]`).classList.toggle('completed');
-  $(`[data-index="${indexNum}"] > div > input`).toggleAttribute('checked');
+  if (e.target.classList.contains('toggle')) {
+    $(`[data-index="${indexNum}"]`).classList.toggle('completed');
+    $(`[data-index="${indexNum}"] > div > input`).toggleAttribute('checked');
+  }
+  if (e.target.classList.contains('destroy')) {
+    $(`[data-index="${indexNum}"]`).remove();
+  }
 };
 
 $('.todo-list').addEventListener('click', handleClick);
