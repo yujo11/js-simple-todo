@@ -7,9 +7,10 @@ const handleSubmit = (e) => {
   e.preventDefault();
 
   const $newInput = $('#new-todo-title');
-  createNewItem($newInput.value, listArray.length);
-  listArray.push($newInput.value);
+  const newItem = createNewItem($newInput.value, listArray.length);
+  listArray.push(newItem);
   $newInput.value = '';
+  checkListCount();
 };
 
 $('.todo-form').addEventListener('submit', handleSubmit);
@@ -29,3 +30,26 @@ const handleClick = (e) => {
 };
 
 $('.todo-list').addEventListener('click', handleClick);
+
+$('.filters').addEventListener('click', (e) => {
+  const lists = $('.todo-list').children;
+  if (e.target.classList.contains('all')) {
+    for (let i = 0; i < lists.length; i++) {
+      lists[i].style.display = 'block';
+    }
+  }
+  if (e.target.classList.contains('active')) {
+    for (let i = 0; i < lists.length; i++) {
+      lists[i].classList.contains('completed')
+        ? (lists[i].style.display = 'none')
+        : (lists[i].style.display = 'block');
+    }
+  }
+  if (e.target.classList.contains('completed')) {
+    for (let i = 0; i < lists.length; i++) {
+      lists[i].classList.contains('completed')
+        ? (lists[i].style.display = 'block')
+        : (lists[i].style.display = 'none');
+    }
+  }
+});

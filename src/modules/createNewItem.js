@@ -1,5 +1,4 @@
 import $ from '../utils/selector.js';
-import checkListCount from '../utils/checkListCount.js';
 
 const createNewItem = (value, index) => {
   const li = document.createElement('li');
@@ -23,7 +22,7 @@ const createNewItem = (value, index) => {
   li.append(div);
   $('.todo-list').append(li);
 
-  checkListCount();
+  return li;
 };
 
 export default createNewItem;
