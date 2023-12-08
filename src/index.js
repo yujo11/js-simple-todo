@@ -1,34 +1,7 @@
 import $ from './utils/selector.js';
+import createNewItem from './modules/createNewItem.js';
+import checkListCount from './utils/checkListCount.js';
 const listArray = [];
-
-const checkListCount = () => {
-  $('.todo-count > strong').textContent = $('.todo-list').childElementCount;
-};
-
-const createNewItem = (value, index) => {
-  const li = document.createElement('li');
-  li.setAttribute('data-index', String(index));
-
-  const div = document.createElement('div');
-  div.classList.add('view');
-
-  const input = document.createElement('input');
-  input.classList.add('toggle');
-  input.setAttribute('type', 'checkbox');
-
-  const label = document.createElement('label');
-  label.classList.add('label');
-  label.textContent = value;
-
-  const button = document.createElement('button');
-  button.classList.add('destroy');
-
-  div.append(input, label, button);
-  li.append(div);
-  $('.todo-list').append(li);
-
-  checkListCount();
-};
 
 const handleSubmit = (e) => {
   e.preventDefault();
