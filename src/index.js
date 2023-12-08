@@ -1,51 +1,69 @@
 import $ from './utils/selector.js';
 import createNewItem from './modules/createNewItem.js';
 import checkListCount from './utils/checkListCount.js';
-const listArray = [];
+const listArray = []; // 더미 배열
 
 const handleSubmit = (e) => {
   e.preventDefault();
 
-  const $newInput = $('#new-todo-title');
-  const newItem = createNewItem($newInput.value, listArray.length);
+  // 새 li 생성
+  const newItem = createNewItem($('#new-todo-title').value, listArray.length);
   listArray.push(newItem);
-  $newInput.value = '';
-  checkListCount();
+
+  $('#new-todo-title').value = '';
+
+  checkListCount(); // 개수 체크
 };
 
 $('.todo-form').addEventListener('submit', handleSubmit);
 
 const handleCheckBoxClick = (e) => {
+  // 부모 li에 담긴 data-index 값 가져오기
   const indexNum = e.target.parentElement.parentElement.dataset['index'];
   if (!indexNum) return;
 
-  if (e.target.classList.contains('toggle')) {
-    $(`[data-index="${indexNum}"]`).classList.toggle('completed');
-    $(`[data-index="${indexNum}"] > div > input`).toggleAttribute('checked');
-  }
-  if (e.target.classList.contains('destroy')) {
-    $(`[data-index="${indexNum}"]`).remove();
-    checkListCount();
+  const clickedTarget = e.target;
+
+  switch (clickedTarget.className) {
+    case 'toggle':
+      // 해당 li 완료하기
+      $(`[data-index="${indexNum}"]`).classList.toggle('completed');
+      $(`[data-index="${indexNum}"] > div > input`).toggleAttribute('checked');
+      break;
+
+    case 'destroy':
+      // 해당 li 삭제하기
+      $(`[data-index="${indexNum}"]`).remove();
+      checkListCount();
+      break;
+
+    default:
+      break;
   }
 };
 
 $('.todo-list').addEventListener('click', handleCheckBoxClick);
 
 const handleFilterClick = (e) => {
+  const clickedTarget = e.target;
+  if (!clickedTarget.tagName === 'LI') return;
+
   const lists = $('.todo-list').children;
-  if (e.target.classList.contains('all')) {
+
+  // 버튼에 따른 리스트 보이고 가리기
+  if (clickedTarget.classList.contains('all')) {
     for (let i = 0; i < lists.length; i++) {
       lists[i].style.display = 'block';
     }
   }
-  if (e.target.classList.contains('active')) {
+  if (clickedTarget.classList.contains('active')) {
     for (let i = 0; i < lists.length; i++) {
       lists[i].classList.contains('completed')
         ? (lists[i].style.display = 'none')
         : (lists[i].style.display = 'block');
     }
   }
-  if (e.target.classList.contains('completed')) {
+  if (clickedTarget.classList.contains('completed')) {
     for (let i = 0; i < lists.length; i++) {
       lists[i].classList.contains('completed')
         ? (lists[i].style.display = 'block')
