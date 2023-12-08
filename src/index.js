@@ -15,7 +15,7 @@ const handleSubmit = (e) => {
 
 $('.todo-form').addEventListener('submit', handleSubmit);
 
-const handleClick = (e) => {
+const handleCheckBoxClick = (e) => {
   const indexNum = e.target.parentElement.parentElement.dataset['index'];
   if (!indexNum) return;
 
@@ -29,9 +29,9 @@ const handleClick = (e) => {
   }
 };
 
-$('.todo-list').addEventListener('click', handleClick);
+$('.todo-list').addEventListener('click', handleCheckBoxClick);
 
-$('.filters').addEventListener('click', (e) => {
+const handleFilterClick = (e) => {
   const lists = $('.todo-list').children;
   if (e.target.classList.contains('all')) {
     for (let i = 0; i < lists.length; i++) {
@@ -52,4 +52,10 @@ $('.filters').addEventListener('click', (e) => {
         : (lists[i].style.display = 'none');
     }
   }
+};
+
+$('.filters').addEventListener('click', handleFilterClick);
+
+$('.todo-list').addEventListener('dblclick', () => {
+  console.log('hi');
 });
