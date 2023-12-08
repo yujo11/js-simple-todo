@@ -3,7 +3,7 @@ const listArray = [];
 
 const createNewItem = (value, index) => {
   const li = document.createElement('li');
-  li.setAttribute('data-set', index);
+  li.setAttribute('data-index', index);
 
   const div = document.createElement('div');
   div.classList.add('view');
@@ -34,3 +34,12 @@ const handleSubmit = (e) => {
 };
 
 $('.todo-form').addEventListener('submit', handleSubmit);
+
+const handleClick = (e) => {
+  if (!e.target.classList.contains('toggle')) return;
+  const indexNum = e.target.parentElement.parentElement.dataset['index'];
+  const $listItem = $(`[data-index="${indexNum}"]`);
+  $listItem.classList.toggle('completed');
+};
+
+$('.todo-list').addEventListener('click', handleClick);
