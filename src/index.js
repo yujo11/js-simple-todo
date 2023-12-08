@@ -38,8 +38,9 @@ $('.todo-form').addEventListener('submit', handleSubmit);
 const handleClick = (e) => {
   if (!e.target.classList.contains('toggle')) return;
   const indexNum = e.target.parentElement.parentElement.dataset['index'];
-  const $listItem = $(`[data-index="${indexNum}"]`);
-  $listItem.classList.toggle('completed');
+
+  $(`[data-index="${indexNum}"]`).classList.toggle('completed');
+  $(`[data-index="${indexNum}"] > div > input`).toggleAttribute('checked');
 };
 
 $('.todo-list').addEventListener('click', handleClick);
